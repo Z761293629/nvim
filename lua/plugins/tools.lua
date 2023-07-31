@@ -20,18 +20,26 @@ return {
     },
     {
         "folke/which-key.nvim",
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = {
-            mode = "n",
-        }
+        config = true
     },
     {
         "echasnovski/mini.comment",
         config =  true
+    },
+    {
+        "numToStr/FTerm.nvim",
+        config = function()
+            require'FTerm'.setup({
+            border = 'double',
+            dimensions  = {
+                height = 0.8,
+                width = 0.6,
+                },
+            })
+
+            -- Example keybindings
+            vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+            vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+        end
     }
-    
 }

@@ -50,7 +50,7 @@ return {
     main = "nvim-treesitter.configs",
     opts = {
         ensure_installed = {
-            "lua", "c","cpp"
+            "lua", "c","cpp","markdown","markdown_inline"
         },
         highlight = {
             enable = true,
@@ -62,7 +62,7 @@ return {
             enable = true,
         },
         textobjects = {
-            select = text_onjects_select     
+            select = text_onjects_select
         }
     }
 }
