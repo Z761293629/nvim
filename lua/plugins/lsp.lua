@@ -8,9 +8,9 @@ local on_attach = function(_, bufnr)
     end
 
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('gd', require "telescope.builtin".lsp_definitions, '[G]oto [D]efinition')
+    nmap('K', "<cmd>Lspsaga hover_doc<CR>", 'Hover Documentation')
+    nmap('gi', require "telescope.builtin".lsp_implementations, '[G]oto [I]mplementation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
     nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -18,10 +18,10 @@ local on_attach = function(_, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[W]orkspace [L]ist Folders')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-    -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap('<leader>rn', "<cmd>Lspsaga rename<CR>", '[R]e[n]ame')
+    nmap('<leader>ca', "<cmd>Lspsaga code_action<CR>", '[C]ode [A]ction')
+    nmap('<leader>da', require "telescope.builtin".diagnostics, '[D]i[A]gnostics')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     nmap("<space>f", function()
         vim.lsp.buf.format { async = true }
     end, "[F]ormat code")
@@ -51,6 +51,8 @@ return {
             }
         }
         require("mason").setup()
+        require("fidget").setup()
+        require('lspsaga').setup()
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         require("mason-lspconfig").setup
         {
@@ -65,7 +67,5 @@ return {
                 end
             }
         }
-        require("fidget").setup{}
-        require('lspsaga').setup()
     end
 }

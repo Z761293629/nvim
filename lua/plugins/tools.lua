@@ -15,7 +15,7 @@ return {
         },
         config = function()
             require("neo-tree").setup()
-            vim.keymap.set({"n","i"},"<leader>e",[[<cmd>Neotree toggle<CR>]])
+            vim.keymap.set({"n","v"},"<leader>e",[[<cmd>Neotree toggle<CR>]])
         end
     },
     {
@@ -41,5 +41,25 @@ return {
             vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
             vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
         end
-    }
+    },
+    {
+        "s1n7ax/nvim-window-picker",
+        config = function()
+            require("window-picker").setup({
+                filter_rules = {
+                    include_current_win = true,
+                    bo = {
+                        filetype = { "fidget", "neo-tree" }
+                    }
+                }
+            })
+            vim.keymap.set("n",
+                "<c-w>p",
+                function()
+                    local window_number = require('window-picker').pick_window()
+                    if window_number then vim.api.nvim_set_current_win(window_number) end
+                end
+            )
+        end
+    },
 }
